@@ -3,13 +3,15 @@ import sys
 import DefensePaths as defensePaths
 import SpaceJamClasses as spaceJamClasses
 
-class MyApp(ShowBase):
+class SpaceJam(ShowBase):
 
     def __init__(self):
         ShowBase.__init__(self)
         self.SetupScene()
 
         self.accept("escape", self.quit)
+        self.SetCamera()
+        self.Hero.SetKeyBindings()
 
         fullCycle = 60
         for j in range(fullCycle):
@@ -73,7 +75,11 @@ class MyApp(ShowBase):
             unitVec.normalize()
             position = unitVec * 500 + centralObject.modelNode.getPos()
             spaceJamClasses.Drone(self.loader, "./Assets/DroneDefender/DroneDefender.obj", self.render, droneName, "./Assets/DroneDefender/octotoad1_auv.png", position, 5)
-        
 
-app = MyApp()
-app.run()
+    def SetCamera(self):
+            self.disableMouse()
+            self.camera.reparentTo(self.Hero.modelNode)
+            self.camera.setFluidPos(0, 1, 0)
+
+game = SpaceJam()
+game.run()
