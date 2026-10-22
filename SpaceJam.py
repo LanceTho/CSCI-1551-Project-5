@@ -2,6 +2,8 @@ from direct.showbase.ShowBase import ShowBase
 import sys
 import DefensePaths as defensePaths
 import SpaceJamClasses as spaceJamClasses
+import Player as playerClasses
+from panda3d.core import CollisionTraverser, CollisionHandlerPusher
 
 class SpaceJam(ShowBase):
 
@@ -12,6 +14,13 @@ class SpaceJam(ShowBase):
         self.accept("escape", self.quit)
         self.SetCamera()
         self.Hero.SetKeyBindings()
+
+        self.cTrav = CollisionTraverser()
+        self.cTrav.traverse(self.render)
+        self.pusher = CollisionHandlerPusher()
+        self.pusher.addCollider(self.Hero.collisionNode, self.Hero.modelNode)
+        self.cTrav.addCollider(self.Hero.collisionNode, self.pusher)
+        self.cTrav.showCollisions(self.render)
 
         fullCycle = 60
         for j in range(fullCycle):
@@ -44,7 +53,7 @@ class SpaceJam(ShowBase):
 
         self.SpaceStation = spaceJamClasses.SpaceStation(self.loader, "./Assets/SpaceStation/spaceStation.egg", self.render, "Space Station", "./Assets/SpaceStation/SpaceStation1_Dif2.png", (1500, 1111, 800), 40)
 
-        self.Hero = spaceJamClasses.SpaceShip(self.loader, "./Assets/Spaceships/Dumbledore.egg", self.render, "Hero", "./Assets/Spaceships/spacejet_C.png", (0, 0, 0), 100)
+        self.Hero = playerClasses.SpaceShip(self.loader, self.taskMgr, self.accept, "./Assets/Spaceships/Dumbledore.egg", self.render, "Hero", "./Assets/Spaceships/spacejet_C.png", (0, 0, 0), 100)
 
     def DrawBaseballSeams(self, centralObject, droneName, step, numSeams, radius = 1):
         unitVec = defensePaths.BaseballSeams(step, numSeams, B = 0.4)
