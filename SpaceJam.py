@@ -37,22 +37,18 @@ class SpaceJam(ShowBase):
         sys.exit()
 
     def SetupScene(self):
+        # Sets up Universe
         self.Universe = spaceJamClasses.Universe(self.loader, "./Assets/Universe/Universe.x", self.render, "Universe", "./Assets/Universe/universe.jpg", (-500, 1000, 1000), 15000)
-
+        # Sets up Planets
         self.Planet1 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet1", "./Assets/Planets/uranus.jpg", (-500, 1000, 1000), 350)
-        
         self.Planet2 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet2", "./Assets/Planets/jupiter.jpg", (-270, 5076, -607), 350)
-
         self.Planet3 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet3", "./Assets/Planets/mars.jpg", (350, 4520, 522), 350)
-
         self.Planet4 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet4", "./Assets/Planets/neptune.jpg", (1000, 2254, 335), 350)
-
         self.Planet5 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet5", "./Assets/Planets/mercury.jpg", (235, 3210, 721), 350)
-
         self.Planet6 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet6", "./Assets/Planets/venus.jpg", (100, 6256, -234), 350)
-
+        # Sets up SpaceStation
         self.SpaceStation = spaceJamClasses.SpaceStation(self.loader, "./Assets/SpaceStation/spaceStation.egg", self.render, "Space Station", "./Assets/SpaceStation/SpaceStation1_Dif2.png", (1500, 1111, 800), 40)
-
+        # Sets up Player's Ship
         self.Hero = playerClasses.SpaceShip(self.loader, self.taskMgr, self.accept, "./Assets/Spaceships/Dumbledore.egg", self.render, "Hero", "./Assets/Spaceships/spacejet_C.png", (0, 0, 0), 100)
 
     def DrawBaseballSeams(self, centralObject, droneName, step, numSeams, radius = 1):
